@@ -29,13 +29,17 @@ def load_checkpoint(checkpoint):
 BATCH_SIZE = 16
 LEARNING_RATE = 1e-3
 NUM_EPOCHS = 10
+# Load model from checkpoint
 load_model = False
+
+# Dataset parameters: percentage of train data to total data, number of classes
+TRAIN_SIZE_RATIO = 0.8 
+NUM_CLASSES = 2
+
 # Path to data folders
 image_path = "internship_data/"
 FILE = "my_model.pth"
 CHECKPOINT = "my_checkpoint.pth.tar"
-
-NUM_CLASSES = 2
 
 # Set up transformations: resize all images to 224x224
 transformations = transforms.Compose([
@@ -47,8 +51,11 @@ transformations = transforms.Compose([
 
 # Creating dataset with Imagefolder
 dataset = ImageFolder(image_path, transform=transformations)
+# Tran/Valid shapes
+TRAIN_SIZE = int(len(dataset) * TRAIN_SIZE_RATIO // 1)
+VALID_SIZE = int(len(dataset) - TRAIN_SIZE)
 # Split the data to train and validation sets
-train_set, val_set = torch.utils.data.random_split(dataset, [80009, 20000])
+train_set, val_set = torch.utils.data.random_split(dataset, [TRAIN_SIZE, VALID_SIZE])
 # Create DataLoader iterators
 train_loader = DataLoader(dataset=train_set,
                           batch_size=BATCH_SIZE, shuffle=True)
