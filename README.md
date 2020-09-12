@@ -1,3 +1,3 @@
 # Repo with solution to tasks
-First task is subMaxArray algorithm.
-Second is Pytorch CNN model for image classification
+1. First task is subMaxArray algorithm.
+2. Second is Pytorch CNN model for image classification.
